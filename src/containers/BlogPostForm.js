@@ -6,38 +6,7 @@ import {
   TextInput,
   View
 } from 'react-native'
-import formModel from 'tcomb-form-native'
-// import FormView from '../components/FormView'
-
-const Form = formModel.form.Form
-const Post = formModel.struct({
-  title: formModel.String,
-  description: formModel.maybe(formModel.String),
-  post: formModel.String
-})
-
-let options = {
-  fields: {
-   post: {
-      multiline: true,
-      numberOfLines: 4,
-        stylesheet: {
-          ...Form.stylesheet,
-          textbox: {
-            ...Form.stylesheet.textbox,
-            normal: {
-              ...Form.stylesheet.textbox.normal,
-              height: 100
-            },
-            error: {
-              ...Form.stylesheet.textbox.error,
-              height: 100
-          }
-        }
-      }
-    },
-  }
-}
+import Posts from './Posts'
 
 export default class BlogPostForm extends Component {
   constructor(props) {
@@ -49,7 +18,6 @@ export default class BlogPostForm extends Component {
     }
   }
   onTitleInputChanged(event) {
-    console.log('onTitleInputChanged running')
     this.setState({title: event.nativeEvent.text})
   }
   onDescriptionInputChanged(event) {
@@ -59,7 +27,13 @@ export default class BlogPostForm extends Component {
     this.setState({post: event.nativeEvent.text})
   }
   onPress() {
+    console.log("blogpost state: ", this.state)
     this.props.addPost(this.state.title, this.state.description, this.state.post)
+    this.props.navigator.push({
+      title: 'Posts',
+      component: Posts,
+      passProps: {posts: this.props.posts}
+    })
   }
 
   render() {
