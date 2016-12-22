@@ -1,3 +1,5 @@
+import * as types from '../actions/actionTypes';
+
 const initialState = {
   posts: [{
     title: 'title here',
@@ -8,20 +10,40 @@ const initialState = {
   message: ''
 }
 
-const blogs = (state = initialState, action) => {
+// const blogs = (state = initialState, action) => {
+//   switch (action.type) {
+//     case 'RECEIVE_DATA':
+//       return [
+//         ...action.posts
+//       ]
+//     case 'DELETE_BLOG':
+//       return [
+//         ...state.slice(0, action.index),
+//         ...state.slice(action.index + 1)
+//       ]
+//     default:
+//       return state
+//   }
+// }
+// export default blogs
+
+const blogReducer = (state = initialState, action = {}) => {
+  console.log('reducer running')
   switch (action.type) {
-    case 'RECEIVE_DATA':
-      return [
-        ...action.blogs
-      ]
-    case 'DELETE_BLOG':
-      return [
-        ...state.slice(0, action.index),
-        ...state.slice(action.index + 1)
-      ]
+    case types.RECEIVE_DATA:
+      console.log("triggered!!")
+      return {
+        ...state,
+        ...action.posts
+      };
+    case types.DELETE_BLOG:
+      return {
+        ...state,
+        ...state.posts.slice(0, action.index).concat(...state.posts.slice(action.index + 1))
+      };
     default:
-      return state
+      return state;
   }
 }
 
-export default blogs
+export default blogReducer
