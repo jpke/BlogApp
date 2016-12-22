@@ -3,6 +3,7 @@ import {
   StyleSheet,
   TouchableHighlight,
   Text,
+  TextInput,
   View
 } from 'react-native'
 import formModel from 'tcomb-form-native'
@@ -15,20 +16,6 @@ const Post = formModel.struct({
   post: formModel.String
 })
 
-// var immutableMap = Immutable.fromJS(t.form.Form.stylesheet);
-// var immutableMerge = immutableMap.mergeDeep({textbox: {normal: {height: 100}}})
-// var tcombStyle = immutableMerge.toJS();
-// let options = {
-//   fields: {
-//     post: {
-//       multiline: true,
-//       numberOfLines: 4,
-//       stylesheet: tcombStyle,
-//       placeholder: 'Placeholder here',
-//       textAlign: 'center'
-//     }
-//   }
-// }
 let options = {
   fields: {
    post: {
@@ -55,20 +42,41 @@ let options = {
 export default class BlogPostForm extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      title: '',
+      description: '',
+      post: ''
+    }
+  }
+  onTitleInputChanged(event) {
+    console.log('onTitleInputChanged running')
+    this.setState({title: event.nativeEvent.text})
+  }
+  onDescriptionInputChanged(event) {
+    this.setState({description: event.nativeEvent.text})
+  }
+  onPostInputChanged(event) {
+    this.setState({post: event.nativeEvent.text})
   }
   onPress() {
-    console.log("onPress clicked")
-    const value = this.refs.form.getValue()
-    if(value) console.log("input value: ", value)
-    this.props.onPress(value)
+    this.props.addPost(this.state.title, this.state.description, this.state.post)
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Form ref='form' type={Post} options={{}}
-        />
-        <TouchableHighlight style={styles.button} onPress={this.props.onPress} underlayColor='#99d9f4'>
+        <TextInput style={styles.title}
+          placeholder=" Title"
+          onChange={this.onTitleInputChanged.bind(this)}/>
+        <TextInput style={styles.description}
+          placeholder=" Description (optional)"
+          onChange={this.onDescriptionInputChanged.bind(this)}/>
+        <TextInput style={styles.post}
+          placeholder=" Post"
+          multiline = {true}
+          numberOfLines = {4}
+          onChange={this.onPostInputChanged.bind(this)}/>
+        <TouchableHighlight style={styles.button} onPress={this.onPress.bind(this)} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Post</Text>
         </TouchableHighlight>
       </View>
@@ -82,6 +90,31 @@ const styles = StyleSheet.create({
     marginTop: 70,
     padding: 20,
     backgroundColor: '#ffffff',
+  },
+  title: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+    padding: 5
+  },
+  description: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+    padding: 5
+  },
+  post : {
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+    height: 100,
+    padding: 5,
+    fontSize: 17
   },
   // title: {
   //   fontSize: 30,

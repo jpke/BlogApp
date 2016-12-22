@@ -18,13 +18,19 @@ export default class BlogApp extends Component {
   constructor() {
     super()
     this.state = {
-      posts: []
+      posts: [],
+      message: ''
     }
   }
-  onPress(newPost) {
+  addPost(title, description, post) {
+    console.log('index onPress running')
+    console.log('initial state.posts', this.state.posts)
+    console.log(this.state.posts === [])
+    let newPosts = [ ...this.state.posts, {title: title, description: description, post: post}]
     this.setState({
-      ...newPost
+      ...{posts: newPosts}
     })
+    console.log('index state', this.state)
   }
   render() {
     return (
@@ -37,9 +43,10 @@ export default class BlogApp extends Component {
       //       posts: this.state.posts,
       //       onPress: this.onPress}
       //   }}/>
-
-      <BlogPostForm onPress = {this.onPress}/>
-
+      <View>
+        <BlogPostForm addPost = {this.addPost.bind(this)}/>
+        <Text>{this.state.message}</Text>
+      </View>
       // <View style={styles.container}>
       //   <Text style={styles.welcome}>
       //     Welcome to React Native!
