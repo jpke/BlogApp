@@ -15,11 +15,49 @@ const Post = formModel.struct({
   post: formModel.String
 })
 
+// var immutableMap = Immutable.fromJS(t.form.Form.stylesheet);
+// var immutableMerge = immutableMap.mergeDeep({textbox: {normal: {height: 100}}})
+// var tcombStyle = immutableMerge.toJS();
+// let options = {
+//   fields: {
+//     post: {
+//       multiline: true,
+//       numberOfLines: 4,
+//       stylesheet: tcombStyle,
+//       placeholder: 'Placeholder here',
+//       textAlign: 'center'
+//     }
+//   }
+// }
+let options = {
+  fields: {
+   post: {
+      multiline: true,
+      numberOfLines: 4,
+        stylesheet: {
+          ...Form.stylesheet,
+          textbox: {
+            ...Form.stylesheet.textbox,
+            normal: {
+              ...Form.stylesheet.textbox.normal,
+              height: 100
+            },
+            error: {
+              ...Form.stylesheet.textbox.error,
+              height: 100
+          }
+        }
+      }
+    },
+  }
+}
+
 export default class BlogPostForm extends Component {
   constructor(props) {
     super(props)
   }
   onPress() {
+    console.log("onPress clicked")
     const value = this.refs.form.getValue()
     if(value) console.log("input value: ", value)
     this.props.onPress(value)
@@ -41,15 +79,15 @@ export default class BlogPostForm extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginTop: 50,
+    marginTop: 70,
     padding: 20,
     backgroundColor: '#ffffff',
   },
-  title: {
-    fontSize: 30,
-    alignSelf: 'center',
-    marginBottom: 30
-  },
+  // title: {
+  //   fontSize: 30,
+  //   alignSelf: 'center',
+  //   marginBottom: 30
+  // },
   buttonText: {
     fontSize: 18,
     color: 'white',

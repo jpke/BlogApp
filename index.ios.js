@@ -28,15 +28,17 @@ export default class BlogApp extends Component {
   }
   render() {
     return (
-      <NavigatorIOS
-        // style={styles.container}
-        initialRoute={{
-          title: 'BlogApp',
-          component: BlogPostForm,
-          passProps: {
-            posts: this.state.posts,
-            onPress: this.onPress}
-        }}/>
+      // <NavigatorIOS
+      //   // style={styles.container}
+      //   initialRoute={{
+      //     title: 'BlogApp',
+      //     component: BlogPostForm,
+      //     passProps: {
+      //       posts: this.state.posts,
+      //       onPress: this.onPress}
+      //   }}/>
+
+      <BlogPostForm onPress = {this.onPress}/>
 
       // <View style={styles.container}>
       //   <Text style={styles.welcome}>
@@ -61,16 +63,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  // welcome: {
+  //   fontSize: 20,
+  //   textAlign: 'center',
+  //   margin: 10,
+  // },
+  // instructions: {
+  //   textAlign: 'center',
+  //   color: '#333333',
+  //   marginBottom: 5,
+  // },
 });
 
 AppRegistry.registerComponent('BlogApp', () => BlogApp);
