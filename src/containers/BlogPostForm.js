@@ -6,6 +6,7 @@ import {
   TextInput,
   View
 } from 'react-native'
+import FormView from '../components/FormView'
 import Posts from './Posts'
 
 export default class BlogPostForm extends Component {
@@ -38,22 +39,7 @@ export default class BlogPostForm extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput style={styles.title}
-          placeholder=" Title"
-          onChange={this.onTitleInputChanged.bind(this)}/>
-        <TextInput style={styles.description}
-          placeholder=" Description (optional)"
-          onChange={this.onDescriptionInputChanged.bind(this)}/>
-        <TextInput style={styles.post}
-          placeholder=" Post"
-          multiline = {true}
-          numberOfLines = {4}
-          onChange={this.onPostInputChanged.bind(this)}/>
-        <TouchableHighlight style={styles.button} onPress={this.onPress.bind(this)} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Post</Text>
-        </TouchableHighlight>
-      </View>
+      <FormView onTitleInputChanged = {this.onPostInputChanged} onDescriptionInputChanged = {this.onDescriptionInputChanged} onPostInputChanged = {this.onPostInputChanged} onPress = {this.onPress} />
     )
   }
 }
