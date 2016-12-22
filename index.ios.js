@@ -13,19 +13,25 @@ import {
   View
 } from 'react-native';
 import BlogPostForm from './src/containers/BlogPostForm'
+import Posts from './src/containers/Posts'
 
 export default class BlogApp extends Component {
   constructor() {
     super()
     this.state = {
-      posts: [],
+      posts: [{
+        title: 'title here',
+        description: 'description here',
+        post: 'post here',
+        id: 1
+        }],
       message: ''
     }
   }
   addPost(title, description, post) {
     console.log('index onPress running')
     console.log('initial state.posts', this.state.posts)
-    console.log(this.state.posts === [])
+    console.log(this.state.posts == [])
     let newPosts = [ ...this.state.posts, {title: title, description: description, post: post}]
     this.setState({
       ...{posts: newPosts}
@@ -33,6 +39,7 @@ export default class BlogApp extends Component {
     console.log('index state', this.state)
   }
   render() {
+    console.log("STATE: ", this.state)
     return (
       // <NavigatorIOS
       //   // style={styles.container}
@@ -43,10 +50,16 @@ export default class BlogApp extends Component {
       //       posts: this.state.posts,
       //       onPress: this.onPress}
       //   }}/>
-      <View>
-        <BlogPostForm addPost = {this.addPost.bind(this)}/>
-        <Text>{this.state.message}</Text>
+
+      // <View>
+      //   <BlogPostForm addPost = {this.addPost.bind(this)}/>
+      //   <Text>{this.state.message}</Text>
+      // </View>
+
+      <View style={styles.container}>
+        <Posts posts = {this.state.posts}/>
       </View>
+
       // <View style={styles.container}>
       //   <Text style={styles.welcome}>
       //     Welcome to React Native!
@@ -66,8 +79,9 @@ export default class BlogApp extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 10,
+    // justifyContent: 'center',
+    // alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   // welcome: {
