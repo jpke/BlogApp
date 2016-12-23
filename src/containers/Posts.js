@@ -31,7 +31,6 @@ class Posts extends Component {
     });
   }
   render() {
-    console.log('POSTS:', this.props.posts)
     return(
       <View style={styles.container}>
         <TouchableHighlight onPress={this.navigate.bind(this, 'BlogPostForm')} style={styles.button}>

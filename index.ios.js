@@ -14,7 +14,6 @@ import Posts from './src/containers/Posts'
 
 class BlogApp extends Component {
   renderScene(route, navigator) {
-    console.log("ROUTE: ", route);
     if(route.name == 'Home') {
       return <Home navigator={navigator} {...route.passProps}/>
     }
