@@ -9,43 +9,21 @@ import {
 import Posts from './Posts'
 
 export default class BlogPostForm extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   // this.addPost= this.addPost.bind(this)
-  // }
-  // onTitleInputChanged(event) {
-  //   this.setState({title: event.nativeEvent.text})
-  // }
-  // onDescriptionInputChanged(event) {
-  //   this.setState({description: event.nativeEvent.text})
-  // }
-  // onPostInputChanged(event) {
-  //   this.setState({post: event.nativeEvent.text})
-  // }
-  // addPost(title, description, post) {
-  //   console.log('index onPress running')
-  //   console.log('initial state.posts', this.state)
-  //   console.log(this.state.posts == [])
-  //   let newPosts = [ ...this.state.posts, {title: title, description: description, post: post, id: this.state.posts.length}]
-  //   this.setState({
-  //     posts: newPosts
-  //   })
-  //   console.log('index state', this.state)
-  // }
-  onPress(e) {
+  constructor(props) {
+    super(props)
+  }
+  onPress() {
+    console.log("PROPS: ", this.props)
     let title = this.refs[1]._lastNativeText
     let description = this.refs[2]._lastNativeText
     let post = this.refs[3]._lastNativeText
-    console.log('TITLE:', title._lastNativeText)
     this.props.addPost(title, description, post)
-    // let newPosts = [ ...this.state.posts, {title: title, description: description, post: post, id: this.state.posts.length}]
-    // this.setState({
-    //   posts: newPosts
-    // })
     this.props.navigator.push({
-      title: 'Posts',
-      component: Posts,
-      passProps: {posts: this.props.posts}
+      name: 'Posts',
+      passProps: {
+        addPost: this.props.addPost,
+        posts: this.props.posts
+      }
     })
   }
 
