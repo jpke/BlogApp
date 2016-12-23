@@ -15,12 +15,6 @@ class Home extends Component {
   constructor(props) {
     super(props)
   }
-  componentWillMount() {
-    this.setState({
-      posts: this.props.posts
-    })
-    console.log("HOME STATE: ", this.state)
-  }
   navigate(routeName, props) {
     this.props.navigator.push({
       name: routeName,
@@ -37,7 +31,7 @@ class Home extends Component {
             Create New Post
           </Text>
         </TouchableHighlight>
-        <TouchableHighlight onPress={this.navigate.bind(this, 'Posts', this.state.posts)} style={styles.button}>
+        <TouchableHighlight onPress={this.navigate.bind(this, 'Posts', this.props.posts)} style={styles.button}>
           <Text style={styles.buttonText}>
             View Posts
           </Text>

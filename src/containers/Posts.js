@@ -45,7 +45,7 @@ class Posts extends Component {
           </Text>
         </TouchableHighlight>
         <ScrollView>
-          {this.props.posts.map(this.createPost)}
+          {(this.props.posts) ? this.props.posts.map(this.createPost) : <Text style={styles.postTitle}>No Posts Yet</Text>}
         </ScrollView>
       </View>
     )

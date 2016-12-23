@@ -42,7 +42,6 @@ export default class BlogPostForm extends Component {
   }
 
   render() {
-    console.log("blogpost props: ", this.props)
     return (
       <View style={styles.container}>
         <TextInput ref='1' style={styles.title}
@@ -101,11 +100,6 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 17
   },
-  // title: {
-  //   fontSize: 30,
-  //   alignSelf: 'center',
-  //   marginBottom: 30
-  // },
   buttonText: {
     fontSize: 18,
     color: 'white',
