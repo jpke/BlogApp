@@ -14,34 +14,25 @@ import {
 class Home extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      posts: [{title: 'titles'}],
-      message: ''
-    }
-    this.addPost= this.addPost.bind(this)
+  }
+  componentWillMount() {
+    this.setState({
+      posts: this.props.posts
+    })
+    console.log("HOME STATE: ", this.state)
   }
   navigate(routeName, props) {
     this.props.navigator.push({
       name: routeName,
       passProps: {
-        addPost: this.addPost,
-        posts: this.state.posts
+        posts: this.props.posts
       }
     });
-  }
-  addPost(title, description, post) {
-    console.log('initial state.posts', this.state)
-    console.log(this.state.posts == [])
-    let newPosts = [ ...this.state.posts, {title: title, description: description, post: post, id: this.state.posts.length}]
-    this.setState({
-      ...{posts: newPosts}
-    })
-    console.log('index state', this.state)
   }
   render() {
     return(
       <View style={styles.container}>
-        <TouchableHighlight onPress={this.navigate.bind(this, 'BlogPostForm', this.addPost)} style={styles.button}>
+        <TouchableHighlight onPress={this.navigate.bind(this, 'BlogPostForm')} style={styles.button}>
           <Text style={styles.buttonText}>
             Create New Post
           </Text>

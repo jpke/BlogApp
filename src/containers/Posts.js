@@ -14,10 +14,10 @@ class Posts extends Component {
   }
   createPost(post) {
     return(
-      <View key={post.id}>
+      <View key={post.id} style={styles.post}>
         <Text style={styles.postTitle}>{post.title}</Text>
         <Text style={styles.postDescription}>{post.description}</Text>
-        <Text style={styles.post}>{post.post}</Text>
+        <Text>{post.post}</Text>
       </View>
     )
   }
@@ -55,12 +55,9 @@ class Posts extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginTop: 70,
+    marginTop: 10,
     padding: 20,
-    backgroundColor: '#ffffff',
-    borderWidth: 1,
-    borderColor: '#48BBEC',
-    borderRadius: 10
+    backgroundColor: '#ffffff'
   },
   postTitle: {
     alignSelf: 'center',
@@ -71,21 +68,27 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontStyle: 'italic'
   },
-  button: {
-    height: 50,
-    backgroundColor: '#48BBEC',
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    marginTop: 10,
-    justifyContent: 'center'
-  },
   buttonText: {
-    fontSize: 22,
-    color: '#FFF',
+    fontSize: 18,
+    color: 'white',
     alignSelf: 'center'
   },
+  button: {
+    height: 36,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
   post: {
-
+    padding: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#48BBEC',
+    borderRadius: 10
   }
 })
 

@@ -17,14 +17,28 @@ export default class BlogPostForm extends Component {
     let title = this.refs[1]._lastNativeText
     let description = this.refs[2]._lastNativeText
     let post = this.refs[3]._lastNativeText
-    this.props.addPost(title, description, post)
+    console.log('POSTS::::',this.props.posts == undefined)
+    let posts
+    if(this.props.posts == undefined) {
+      posts = [{title: title, description: description, post: post, id: 0}]
+    }else {
+      posts = this.props.posts.concat({
+        title: title,
+        description: description,
+        post: post,
+        id: this.props.posts.length
+      })
+    }
+    console.log('posts:: ', posts)
+    this.navigate('Posts', posts)
+  }
+  navigate(routeName, posts) {
     this.props.navigator.push({
-      name: 'Posts',
+      name: routeName,
       passProps: {
-        addPost: this.props.addPost,
-        posts: this.props.posts
+        posts: posts
       }
-    })
+    });
   }
 
   render() {
@@ -44,6 +58,11 @@ export default class BlogPostForm extends Component {
         />
         <TouchableHighlight style={styles.button} onPress={this.onPress.bind(this)} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Post</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.navigate.bind(this, 'Posts', this.props.posts)} style={styles.button}>
+          <Text style={styles.buttonText}>
+            View Posts
+          </Text>
         </TouchableHighlight>
       </View>
     )
