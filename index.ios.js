@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -42,24 +36,24 @@ export default class BlogApp extends Component {
   render() {
     console.log("STATE: ", this.state, this.state.posts.length)
     return (
-      <NavigatorIOS
-        style={styles.wrapper}
-        initialRoute={{
-          title: 'BlogApp',
-          component: BlogPostForm,
-          passProps: {
-            posts: this.state.posts,
-            addPost: this.addPost}
-        }}/>
+      // <NavigatorIOS
+      //   style={styles.wrapper}
+      //   initialRoute={{
+      //     title: 'BlogApp',
+      //     component: BlogPostForm,
+      //     passProps: {
+      //       posts: this.state.posts,
+      //       addPost: this.addPost}
+      //   }}/>
 
       // <View>
       //   <BlogPostForm addPost = {this.addPost.bind(this)}/>
       //   <Text>{this.state.message}</Text>
       // </View>
 
-      // <View style={styles.container}>
-      //   <Posts posts = {this.state.posts}/>
-      // </View>
+      <View style={styles.container}>
+        <Posts posts = {this.state.posts}/>
+      </View>
 
       // <View style={styles.container}>
       //   <Text style={styles.welcome}>
