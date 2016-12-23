@@ -9,26 +9,39 @@ import {
 import Posts from './Posts'
 
 export default class BlogPostForm extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      title: '',
-      description: '',
-      post: ''
-    }
-  }
-  onTitleInputChanged(event) {
-    this.setState({title: event.nativeEvent.text})
-  }
-  onDescriptionInputChanged(event) {
-    this.setState({description: event.nativeEvent.text})
-  }
-  onPostInputChanged(event) {
-    this.setState({post: event.nativeEvent.text})
-  }
-  onPress() {
-    console.log("blogpost state: ", this.state)
-    this.props.addPost(this.state.title, this.state.description, this.state.post)
+  // constructor(props) {
+  //   super(props)
+  //   // this.addPost= this.addPost.bind(this)
+  // }
+  // onTitleInputChanged(event) {
+  //   this.setState({title: event.nativeEvent.text})
+  // }
+  // onDescriptionInputChanged(event) {
+  //   this.setState({description: event.nativeEvent.text})
+  // }
+  // onPostInputChanged(event) {
+  //   this.setState({post: event.nativeEvent.text})
+  // }
+  // addPost(title, description, post) {
+  //   console.log('index onPress running')
+  //   console.log('initial state.posts', this.state)
+  //   console.log(this.state.posts == [])
+  //   let newPosts = [ ...this.state.posts, {title: title, description: description, post: post, id: this.state.posts.length}]
+  //   this.setState({
+  //     posts: newPosts
+  //   })
+  //   console.log('index state', this.state)
+  // }
+  onPress(e) {
+    let title = this.refs[1]._lastNativeText
+    let description = this.refs[2]._lastNativeText
+    let post = this.refs[3]._lastNativeText
+    console.log('TITLE:', title._lastNativeText)
+    this.props.addPost(title, description, post)
+    // let newPosts = [ ...this.state.posts, {title: title, description: description, post: post, id: this.state.posts.length}]
+    // this.setState({
+    //   posts: newPosts
+    // })
     this.props.navigator.push({
       title: 'Posts',
       component: Posts,
@@ -37,19 +50,20 @@ export default class BlogPostForm extends Component {
   }
 
   render() {
+    console.log("blogpost props: ", this.props)
     return (
       <View style={styles.container}>
-        <TextInput style={styles.title}
+        <TextInput ref='1' style={styles.title}
           placeholder=" Title"
-          onChange={this.onTitleInputChanged.bind(this)}/>
-        <TextInput style={styles.description}
+          />
+        <TextInput ref='2' style={styles.description}
           placeholder=" Description (optional)"
-          onChange={this.onDescriptionInputChanged.bind(this)}/>
-        <TextInput style={styles.post}
+          />
+        <TextInput ref='3' style={styles.post}
           placeholder=" Post"
           multiline = {true}
           numberOfLines = {4}
-          onChange={this.onPostInputChanged.bind(this)}/>
+        />
         <TouchableHighlight style={styles.button} onPress={this.onPress.bind(this)} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Post</Text>
         </TouchableHighlight>
