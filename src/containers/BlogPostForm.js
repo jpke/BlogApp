@@ -18,7 +18,7 @@ export default class BlogPostForm extends Component {
     let title = this.refs[1]._lastNativeText
     let description = this.refs[2]._lastNativeText
     let body = this.refs[3]._lastNativeText
-    let posts
+    // let posts
     // if(this.props.posts == undefined) {
     //   posts = [{title: title, description: description, post: post, id: 0}]
     // }else {
@@ -41,17 +41,14 @@ export default class BlogPostForm extends Component {
       })
     })
     .then(response => response.json())
-    .then(() => {
-      console.log('posts:: ', posts)
-      this.navigate('Posts', posts)
+    .then((response) => {
+      console.log('response:: ', response)
+      this.navigate('Posts')
     })
   }
   navigate(routeName, posts) {
     this.props.navigator.push({
       name: routeName,
-      passProps: {
-        posts: posts
-      }
     });
   }
 
