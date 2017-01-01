@@ -18,17 +18,6 @@ export default class BlogPostForm extends Component {
     let title = this.refs[1]._lastNativeText
     let description = this.refs[2]._lastNativeText
     let body = this.refs[3]._lastNativeText
-    // let posts
-    // if(this.props.posts == undefined) {
-    //   posts = [{title: title, description: description, post: post, id: 0}]
-    // }else {
-    //   posts = this.props.posts.concat({
-    //     title: title,
-    //     description: description,
-    //     post: post,
-    //     id: this.props.posts.length
-    //   })
-    // }
     fetch('http://localhost:8080/Posts', {
       method: 'POST',
       headers: {
