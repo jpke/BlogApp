@@ -33,25 +33,9 @@ class Posts extends Component {
       this.setState({posts: posts, isLoading: false})
     })
   }
-  // ComponentDidMount() {
-  //   console.log("fetching")
-  //   fetch('http://localhost:8080/posts', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  //   .then(response => response.json())
-  //   .then(posts => {
-  //     console.log("POSTS:: ", posts[0])
-  //     console.log("State: ", this.state.posts)
-  //     this.setState({posts: posts[0]})
-  //     console.log("State: ", this.state.posts)
-  //   })
-  // }
-  listPost(post) {
+  listPost(post, index) {
     return(
-      <View key={post.id} style={styles.post}>
+      <View key={index} style={styles.post}>
         <Text style={styles.postTitle}>{post.title}</Text>
         <Text style={styles.postDescription}>{post.description}</Text>
         <Text>{post.body}</Text>
@@ -59,13 +43,13 @@ class Posts extends Component {
     )
   }
   navigate(routeName, props) {
-    // if(routeName == 'Home') {
-    //   this.props.navigator.popToTop(0)
-    // } else {
+    if(routeName == 'Home') {
+      this.props.navigator.popToTop(0)
+    } else {
       this.props.navigator.push({
         name: routeName,
       });
-    // }
+    }
   }
   render() {
     let spinner = this.state.isLoading ? (<ActivityIndicator size= 'large'/>) : (<View/>)

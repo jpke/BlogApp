@@ -21,8 +21,7 @@ class BlogApp extends Component {
       return <BlogPostForm navigator={navigator}/>
     }
     if(route.name == 'Posts') {
-      return <Posts navigator={navigator}
-                key="profile-nav-bar"/>
+      return <Posts navigator={navigator}/>
     }
   }
   render() {

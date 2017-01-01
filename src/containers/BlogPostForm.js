@@ -40,7 +40,6 @@ export default class BlogPostForm extends Component {
       name: routeName,
     });
   }
-
   render() {
     return (
       <View style={styles.container}>
