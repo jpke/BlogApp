@@ -1,38 +1,101 @@
 import React, {Component} from 'react'
+import fetch from 'isomorphic-fetch'
 import {
+  ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View
 } from 'react-native'
 
-export default Posts = (props) => {
-  const createPost = (post) => (
-    <View key={post.id}>
-      <Text style={styles.postTitle}>{post.title}</Text>
-      <Text style={styles.postDescription}>{post.description}</Text>
-      <Text style={styles.post}>{post.post}</Text>
-    </View>
-  )
-  console.log('POSTS:',props.posts)
-  return(
-    <View style={styles.container}>
-      <ScrollView>
-        {props.posts.map(createPost)}
-      </ScrollView>
-    </View>
-  )
+class Posts extends Component {
+  constructor(props) {
+    console.log("Post component mounting...")
+    super(props)
+    this.listPost.bind(this)
+    this.state = {
+      posts: [],
+      isLoading: true
+    }
+  }
+  componentDidMount() {
+    console.log("Post component mounting")
+    fetch('http://localhost:8080/posts', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(posts => {
+      console.log("POSTS:: ", posts)
+      this.setState({posts: posts, isLoading: false})
+    })
+  }
+  // ComponentDidMount() {
+  //   console.log("fetching")
+  //   fetch('http://localhost:8080/posts', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   .then(response => response.json())
+  //   .then(posts => {
+  //     console.log("POSTS:: ", posts[0])
+  //     console.log("State: ", this.state.posts)
+  //     this.setState({posts: posts[0]})
+  //     console.log("State: ", this.state.posts)
+  //   })
+  // }
+  listPost(post) {
+    return(
+      <View key={post.id} style={styles.post}>
+        <Text style={styles.postTitle}>{post.title}</Text>
+        <Text style={styles.postDescription}>{post.description}</Text>
+        <Text>{post.body}</Text>
+      </View>
+    )
+  }
+  navigate(routeName, props) {
+    // if(routeName == 'Home') {
+    //   this.props.navigator.popToTop(0)
+    // } else {
+      this.props.navigator.push({
+        name: routeName,
+      });
+    // }
+  }
+  render() {
+    let spinner = this.state.isLoading ? (<ActivityIndicator size= 'large'/>) : (<View/>)
+    return(
+      <View style={styles.container}>
+        <TouchableHighlight onPress={this.navigate.bind(this, 'BlogPostForm')} style={styles.button}>
+          <Text style={styles.buttonText}>
+            Create New Post
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.navigate.bind(this, 'Home')} style={styles.button}>
+          <Text style={styles.buttonText}>
+            Home
+          </Text>
+        </TouchableHighlight>
+        {spinner}
+        <ScrollView>
+          {(this.state.posts) ? this.state.posts.map(this.listPost) : <Text style={styles.postTitle}>No Posts Yet</Text>}
+        </ScrollView>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginTop: 70,
+    marginTop: 10,
     padding: 20,
-    backgroundColor: '#ffffff',
-    borderWidth: 1,
-    borderColor: '#48BBEC',
-    borderRadius: 10
+    backgroundColor: '#ffffff'
   },
   postTitle: {
     alignSelf: 'center',
@@ -43,7 +106,28 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontStyle: 'italic'
   },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
   post: {
-
+    padding: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#48BBEC',
+    borderRadius: 10
   }
 })
+
+export default Posts
