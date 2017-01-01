@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import fetch from 'isomorphic-fetch'
 import {
   StyleSheet,
   TouchableHighlight,
@@ -16,21 +17,34 @@ export default class BlogPostForm extends Component {
     console.log("PROPS: ", this.props)
     let title = this.refs[1]._lastNativeText
     let description = this.refs[2]._lastNativeText
-    let post = this.refs[3]._lastNativeText
-    console.log('POSTS::::',this.props.posts == undefined)
+    let body = this.refs[3]._lastNativeText
     let posts
-    if(this.props.posts == undefined) {
-      posts = [{title: title, description: description, post: post, id: 0}]
-    }else {
-      posts = this.props.posts.concat({
-        title: title,
-        description: description,
-        post: post,
-        id: this.props.posts.length
+    // if(this.props.posts == undefined) {
+    //   posts = [{title: title, description: description, post: post, id: 0}]
+    // }else {
+    //   posts = this.props.posts.concat({
+    //     title: title,
+    //     description: description,
+    //     post: post,
+    //     id: this.props.posts.length
+    //   })
+    // }
+    fetch('http://localhost:8080/Posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        body
       })
-    }
-    console.log('posts:: ', posts)
-    this.navigate('Posts', posts)
+    })
+    .then(response => response.json())
+    .then(() => {
+      console.log('posts:: ', posts)
+      this.navigate('Posts', posts)
+    })
   }
   navigate(routeName, posts) {
     this.props.navigator.push({

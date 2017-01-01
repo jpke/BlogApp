@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
+import fetch from 'isomorphic-fetch'
 import {
+  ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,28 +11,64 @@ import {
 
 class Posts extends Component {
   constructor(props) {
+    console.log("Post component mounting...")
     super(props)
-    this.createPost.bind(this)
+    this.listPost.bind(this)
+    this.state = {
+      posts: [],
+      isLoading: true
+    }
   }
-  createPost(post) {
+  componentDidMount() {
+    console.log("Post component mounting")
+    fetch('http://localhost:8080/posts', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(posts => {
+      console.log("POSTS:: ", posts)
+      this.setState({posts: posts, isLoading: false})
+    })
+  }
+  // ComponentDidMount() {
+  //   console.log("fetching")
+  //   fetch('http://localhost:8080/posts', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   .then(response => response.json())
+  //   .then(posts => {
+  //     console.log("POSTS:: ", posts[0])
+  //     console.log("State: ", this.state.posts)
+  //     this.setState({posts: posts[0]})
+  //     console.log("State: ", this.state.posts)
+  //   })
+  // }
+  listPost(post) {
     return(
       <View key={post.id} style={styles.post}>
         <Text style={styles.postTitle}>{post.title}</Text>
         <Text style={styles.postDescription}>{post.description}</Text>
-        <Text>{post.post}</Text>
+        <Text>{post.body}</Text>
       </View>
     )
   }
   navigate(routeName, props) {
-    this.props.navigator.push({
-      name: routeName,
-      passProps: {
-        addPost: this.props.addPost,
-        posts: this.props.posts
-      }
-    });
+    // if(routeName == 'Home') {
+    //   this.props.navigator.popToTop(0)
+    // } else {
+      this.props.navigator.push({
+        name: routeName,
+      });
+    // }
   }
   render() {
+    let spinner = this.state.isLoading ? (<ActivityIndicator size= 'large'/>) : (<View/>)
     return(
       <View style={styles.container}>
         <TouchableHighlight onPress={this.navigate.bind(this, 'BlogPostForm')} style={styles.button}>
@@ -43,8 +81,9 @@ class Posts extends Component {
             Home
           </Text>
         </TouchableHighlight>
+        {spinner}
         <ScrollView>
-          {(this.props.posts) ? this.props.posts.map(this.createPost) : <Text style={styles.postTitle}>No Posts Yet</Text>}
+          {(this.state.posts) ? this.state.posts.map(this.listPost) : <Text style={styles.postTitle}>No Posts Yet</Text>}
         </ScrollView>
       </View>
     )

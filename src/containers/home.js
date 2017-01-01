@@ -18,9 +18,6 @@ class Home extends Component {
   navigate(routeName, props) {
     this.props.navigator.push({
       name: routeName,
-      passProps: {
-        posts: this.props.posts
-      }
     });
   }
   render() {

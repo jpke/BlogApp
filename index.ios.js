@@ -15,13 +15,14 @@ import Posts from './src/containers/Posts'
 class BlogApp extends Component {
   renderScene(route, navigator) {
     if(route.name == 'Home') {
-      return <Home navigator={navigator} {...route.passProps}/>
+      return <Home navigator={navigator}/>
     }
     if(route.name == 'BlogPostForm') {
-      return <BlogPostForm navigator={navigator} {...route.passProps}/>
+      return <BlogPostForm navigator={navigator}/>
     }
     if(route.name == 'Posts') {
-      return <Posts navigator={navigator} {...route.passProps}/>
+      return <Posts navigator={navigator}
+                key="profile-nav-bar"/>
     }
   }
   render() {
