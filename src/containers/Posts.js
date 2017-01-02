@@ -11,7 +11,6 @@ import {
 
 class Posts extends Component {
   constructor(props) {
-    console.log("Post component mounting...")
     super(props)
     this.listPost.bind(this)
     this.state = {
@@ -20,7 +19,6 @@ class Posts extends Component {
     }
   }
   componentDidMount() {
-    console.log("Post component mounting")
     fetch('http://localhost:8080/posts', {
       method: 'GET',
       headers: {
@@ -29,7 +27,6 @@ class Posts extends Component {
     })
     .then(response => response.json())
     .then(posts => {
-      console.log("POSTS:: ", posts)
       this.setState({posts: posts, isLoading: false})
     })
   }

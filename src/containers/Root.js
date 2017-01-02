@@ -16,7 +16,6 @@ export default class Root extends Component {
     this.getToken();
   }
   navigate(routeName) {
-    console.log("navigate to Register")
     this.props.navigator.push({
       name: routeName
     });
@@ -48,7 +47,6 @@ export default class Root extends Component {
       });
       let res = await response.json();
       if (response.status >= 200 && response.status < 300) {
-        console.log("RESPONSE: ", response, "RES: ", res)
         //Verified token means user is logged in so we redirect him to home.
         this.navigate('Home');
       } else {

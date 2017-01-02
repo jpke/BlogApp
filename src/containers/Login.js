@@ -46,23 +46,21 @@ class Login extends Component {
     console.log("State: ", this.state)
     this.setState({showProgress: true})
     try {
-      let response = await fetch('http://localhost:8080/users', {
+      let response = await fetch('http://localhost:8080/login', {
                               method: 'POST',
                               headers: {
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json',
                               },
                               body: JSON.stringify({
-                                session:{
                                   email: this.state.email,
                                   password: this.state.password,
-                                }
                               })
                             });
-      let res = await response.text();
+      let res = await response.json();
       if (response.status >= 200 && response.status < 300) {
           //Handle success
-          let accessToken = res;
+          let accessToken = res.token;
           console.log(accessToken);
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
@@ -83,7 +81,7 @@ class Login extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.heading}>
-          Native on Rails
+          Login
         </Text>
         <TextInput
           onChangeText={ (text)=> this.setState({email: text}) }

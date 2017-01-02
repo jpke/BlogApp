@@ -13,13 +13,22 @@ import {
 
 class Home extends Component {
   constructor(props) {
-    console.log('Home mounting...')
     super(props)
   }
   navigate(routeName) {
     this.props.navigator.push({
       name: routeName,
     });
+  }
+  async onLogout() {
+    console.log('triggered')
+    try {
+        const ACCESS_TOKEN = 'access_token';
+        await AsyncStorage.removeItem(ACCESS_TOKEN)
+        this.props.navigator.resetTo({name: 'Root'});
+    } catch(error) {
+        console.log("Something went wrong");
+    }
   }
   render() {
     return(
@@ -32,6 +41,11 @@ class Home extends Component {
         <TouchableHighlight onPress={this.navigate.bind(this, 'Posts', this.props.posts)} style={styles.button}>
           <Text style={styles.buttonText}>
             View Posts
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.onLogout.bind(this)} style={styles.button}>
+          <Text style={styles.buttonText}>
+            Logout
           </Text>
         </TouchableHighlight>
       </View>
