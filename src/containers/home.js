@@ -13,9 +13,10 @@ import {
 
 class Home extends Component {
   constructor(props) {
+    console.log('Home mounting...')
     super(props)
   }
-  navigate(routeName, props) {
+  navigate(routeName) {
     this.props.navigator.push({
       name: routeName,
     });

@@ -42,14 +42,10 @@ class Posts extends Component {
       </View>
     )
   }
-  navigate(routeName, props) {
-    if(routeName == 'Home') {
-      this.props.navigator.popToTop(0)
-    } else {
-      this.props.navigator.push({
-        name: routeName,
-      });
-    }
+  navigate(routeName) {
+    this.props.navigator.resetTo({
+      name: routeName,
+    });
   }
   render() {
     let spinner = this.state.isLoading ? (<ActivityIndicator size= 'large'/>) : (<View/>)
@@ -77,7 +73,7 @@ class Posts extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: 20,
     padding: 20,
     backgroundColor: '#ffffff'
   },
@@ -107,7 +103,7 @@ const styles = StyleSheet.create({
   },
   post: {
     padding: 10,
-    marginBottom: 10,
+    marginBottom: 5,
     borderWidth: 1,
     borderColor: '#48BBEC',
     borderRadius: 10
