@@ -19,6 +19,7 @@ export default class Register extends Component {
 
     this.state = {
       name: "",
+      email: "",
       password: "",
       password_confirmation: "",
       errors: [],
@@ -56,6 +57,7 @@ export default class Register extends Component {
                               },
                               body: JSON.stringify({
                                 name: this.state.name,
+                                email: this.state.email,
                                 password: this.state.password,
                                 password_confirmation: this.state.password_confirmation,
                               })
@@ -99,6 +101,11 @@ export default class Register extends Component {
         <TextInput
           onChangeText={ (text)=> this.setState({name: text}) }
           style={styles.input} placeholder="Name">
+        </TextInput>
+        <TextInput
+          onChangeText={ (text)=> this.setState({email: text}) }
+          style={styles.input}
+          placeholder="Email">
         </TextInput>
         <TextInput
           onChangeText={ (text)=> this.setState({password: text}) }
