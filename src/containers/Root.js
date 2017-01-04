@@ -38,7 +38,7 @@ export default class Root extends Component {
     let accessToken = token
 
     try {
-      let response = await fetch('http://localhost:8080/users', {
+      let response = await fetch('https://portfolio-express.herokuapp.com/users', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -61,13 +61,19 @@ export default class Root extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome to the Simple Blog App </Text>
-        <TouchableHighlight onPress={ this.navigate.bind(this,'Register') } style={styles.button}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={ this.navigate.bind(this, 'Login') } style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableHighlight>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Welcome</Text>
+          <Text style={styles.title}>to a</Text>
+          <Text style={styles.title}>Simple Blog App</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableHighlight onPress={ this.navigate.bind(this,'Register') } style={styles.button}>
+            <Text style={styles.buttonText}>Register</Text>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={ this.navigate.bind(this, 'Login') } style={styles.button}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -76,11 +82,23 @@ export default class Root extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-    padding: 10,
-    paddingTop: 180
+    padding: 15,
+    paddingTop: 130,
+    paddingBottom: 15,
+    alignItems: 'stretch'
+  },
+  titleContainer: {
+    alignItems: 'center'
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 10
+  },
+  buttonContainer: {
+    alignItems: 'stretch'
   },
   button: {
     height: 50,

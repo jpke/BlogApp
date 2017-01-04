@@ -46,7 +46,7 @@ class Login extends Component {
     console.log("State: ", this.state)
     this.setState({showProgress: true})
     try {
-      let response = await fetch('http://localhost:8080/login', {
+      let response = await fetch('https://portfolio-express.herokuapp.com/login', {
                               method: 'POST',
                               headers: {
                                 'Accept': 'application/json',

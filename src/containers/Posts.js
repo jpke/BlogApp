@@ -19,7 +19,7 @@ class Posts extends Component {
     }
   }
   componentDidMount() {
-    fetch('http://localhost:8080/posts', {
+    fetch('https://portfolio-express.herokuapp.com/posts', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
